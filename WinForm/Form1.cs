@@ -12,6 +12,7 @@ using System.Configuration;
 using System.Xml.Serialization;
 using System.IO;
 using Newtonsoft.Json;
+using System.Runtime.Serialization.Formatters.Soap;
 
 namespace WinForm
 {
@@ -109,13 +110,14 @@ namespace WinForm
         private void soapOlarakAktarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Title = "Musteri Bilgileri Kayıt";
-            saveFileDialog1.Filter = "*.json|*.json";
+            saveFileDialog1.Filter = "*.dat|*.dat";
             saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                string json = JsonConvert.SerializeObject(ds);
-                File.WriteAllText(saveFileDialog1.FileName, json);
+                FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.Create);
+                SoapFormatter sf = new SoapFormatter();
+                sf.Serialize(fs,ds);
             }
         }
     }
