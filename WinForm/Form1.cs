@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Xml.Serialization;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace WinForm
 {
@@ -90,6 +91,32 @@ namespace WinForm
 
             adap.Fill(ds.Tables["Employe"]);
             dataGridView1.DataSource = ds.Tables["Employe"];
+        }
+
+        private void jsonOlarakAktarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Title = "Musteri Bilgileri Kayıt";
+            saveFileDialog1.Filter = "*.json|*.json";
+            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+             string json= JsonConvert.SerializeObject(ds);
+                File.WriteAllText(saveFileDialog1.FileName, json);
+            }
+        }
+
+        private void soapOlarakAktarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Title = "Musteri Bilgileri Kayıt";
+            saveFileDialog1.Filter = "*.json|*.json";
+            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string json = JsonConvert.SerializeObject(ds);
+                File.WriteAllText(saveFileDialog1.FileName, json);
+            }
         }
     }
 }
