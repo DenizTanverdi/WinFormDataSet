@@ -102,7 +102,8 @@ namespace WinForm
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-             string json= JsonConvert.SerializeObject(ds);
+
+                string json= JsonConvert.SerializeObject(ds);
                 File.WriteAllText(saveFileDialog1.FileName, json);
             }
         }
